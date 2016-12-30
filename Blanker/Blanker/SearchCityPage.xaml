@@ -1,0 +1,28 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Blanker.SearchCityPage">
+  <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness"
+                iOS="20, 40, 20, 20"
+                Android="20, 20, 20, 20"
+                WinPhone="20, 20, 20, 20" />
+  </ContentPage.Padding>
+  <ContentPage.Content>
+    <ScrollView>
+      <StackLayout VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand"
+                     Orientation="Vertical"
+                     Spacing="15">
+        <SearchBar x:Name ="searchBarCity" Placeholder="City" IsEnabled="true" TextChanged="OnSearch"></SearchBar>
+        <ListView x:Name="listViewCities" ItemSelected="OnSelect">
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <ImageCell Text="{Binding title}" Detail="{Binding region}"></ImageCell>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="addButton" Text="Add" IsEnabled="false" Clicked="OnClick"></Button>
+      </StackLayout>
+    </ScrollView>
+  </ContentPage.Content>
+</ContentPage>
