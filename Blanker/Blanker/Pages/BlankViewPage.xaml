@@ -9,18 +9,28 @@
   </ContentPage.Padding>
   <ContentPage.Content>
     <ScrollView>
-      <Label Text="Blank Data" XAlign="Center" FontSize="24" />
       <StackLayout Padding="5,0,0,0">
-        <Label Text="Name:" FontSize="24" />
-        <Label x:Name="labelName" FontSize="24" />
-        <Label Text="Surname:" FontSize="24" />
-        <Label x:Name="labelSurname" FontSize="24" ></Label>
-        <Label Text="Country:" FontSize="24" />
-        <Label x:Name="labelCountry" FontSize="24" ></Label>
-        <Label Text="City:" FontSize="24" />
-        <Label x:Name="labelCity" FontSize="24" ></Label>
-        <Label Text="University:" FontSize="24" />
-        <Label x:Name="labelUniversity" FontSize="24" ></Label>
+        <Label Text="Blank Data" XAlign="Center" FontSize="24" />
+        <StackLayout Orientation="Horizontal">
+          <Label Text="Name:" FontSize="16" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100"/>
+          <Label x:Name="labelName" FontSize="16" HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+          <Label Text="Surname:" FontSize="16" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100"/>
+          <Label x:Name="labelSurname" FontSize="16" HorizontalOptions="FillAndExpand" ></Label>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+          <Label Text="Country:" FontSize="16" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100"/>
+          <Label x:Name="labelCountry" FontSize="16" ></Label>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+          <Label Text="City:" FontSize="16" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100"/>
+          <Label x:Name="labelCity" FontSize="16" ></Label>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+          <Label Text="University:" FontSize="16" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100"/>
+          <Label x:Name="labelUniversity" FontSize="16" ></Label>
+        </StackLayout>
       </StackLayout>
     </ScrollView>
   </ContentPage.Content>

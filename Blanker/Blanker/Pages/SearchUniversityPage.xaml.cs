@@ -11,7 +11,6 @@ namespace Blanker
 {
     public partial class SearchUniversityPage : ContentPage
     {
-
         public List<University> Universities { get; set; }
 
         public University SelectedUniversity { get; set; }

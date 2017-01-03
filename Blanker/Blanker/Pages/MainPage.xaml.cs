@@ -18,10 +18,6 @@ namespace Blanker
     {
         public Blank Blank = new Blank();
 
-        public List<Entry> Entries = new List<Entry>();
-
-        public List<SearchBar> SearchBars = new List<SearchBar>();
-
         public List<Country> Countries { get; set; }
 
         Adapter Adapter;
@@ -29,8 +25,6 @@ namespace Blanker
         public MainPage()
         {
             InitializeComponent();
-
-            FillEntries();
 
             LoadCountries();
         }
@@ -54,16 +48,6 @@ namespace Blanker
 
         }
 
-        private async void SelectCity(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new SearchCityPage(DetermineCountryId()));
-        }
-
-        private async void SelectUniversity(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new SearchUniversityPage(Blank.Country.cid, Blank.City.cid));
-        }
-
         private int DetermineCountryId()
         {
             string country = pickerCountry.Items[pickerCountry.SelectedIndex];
@@ -77,55 +61,84 @@ namespace Blanker
                     Blank.Country = item;
                 }
             }
-            
+
             return countryId;
         }
 
         protected internal void AddCity(City city)
         {
             this.Blank.City = city;
-            cityLabel.Text = this.Blank.City.title;
+            cityEntry.Text = this.Blank.City.title;
         }
 
         protected internal void AddUniversity(University university)
         {
             this.Blank.University = university;
-            universityLabel.Text = this.Blank.University.title;
-        }
-
-        private void FillEntries()
-        {
-            Entries.Add(nameEntry);
-            Entries.Add(surnameEntry);
-        }
-
-        async void ShowBlank(object sender, EventArgs e)
-        {
-            FillBlank();
-            await Navigation.PushAsync(new BlankViewPage(Blank));
+            universityEntry.Text = this.Blank.University.title;
         }
 
         private void FillBlank()
         {
             Blank.Name = nameEntry.Text;
             Blank.Surname = surnameEntry.Text;
-            
+
+        }
+        async void ShowBlank(object sender, EventArgs e)
+        {
+            FillBlank();
+            await Navigation.PushAsync(new BlankViewPage(Blank));
         }
 
         private void OnTextChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < Entries.Count; i++)
-            {
-                if (i == Entries.Count - 1)
-                {
-                    break;
-                }
+            CheckFilling();
 
-                if (!string.IsNullOrWhiteSpace(Entries[i].Text))
-                {
-                    Entries[i + 1].IsEnabled = true;
-                }
+            //for (int i = 0; i < Entries.Count; i++)
+            //{
+            //    if (i == Entries.Count - 1)
+            //    {
+            //        break;
+            //    }
+
+            //    if (!string.IsNullOrWhiteSpace(Entries[i].Text))
+            //    {
+            //        Entries[i + 1].IsEnabled = true;
+            //    }
+            //}
+        }
+
+        private void CheckFilling()
+        {
+            if (!string.IsNullOrWhiteSpace(nameEntry.Text))
+            {
+                surnameEntry.IsEnabled = true;
             }
+            if (!string.IsNullOrWhiteSpace(surnameEntry.Text))
+            {
+                pickerCountry.IsEnabled = true;
+            }
+            if (pickerCountry.SelectedIndex>=0)
+            {
+                cityButton.IsEnabled = true;
+            }
+            if (!string.IsNullOrWhiteSpace(cityEntry.Text))
+            {
+                universityButton.IsEnabled = true;
+            }
+            if (!string.IsNullOrWhiteSpace(universityEntry.Text))
+            {
+                fillButton.IsEnabled = true;
+            }
+        }
+       
+        private async void SelectCity(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SearchCityPage(DetermineCountryId()));
+        }
+
+        private async void SelectUniversity(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SearchUniversityPage(Blank.Country.cid, Blank.City.cid));
         }
     }
 }
