@@ -16,10 +16,12 @@
         <Label Text="Blank" XAlign="Center" FontSize="24" />
         <Entry x:Name="nameEntry" Text="" Placeholder="Name" TextChanged="OnTextChanged"/>
         <Entry x:Name="surnameEntry" Text="" Placeholder="Surname" IsEnabled="false" TextChanged="OnTextChanged"/>
-        <Picker x:Name="pickerCountry" Title="Country"></Picker>
-        <Label x:Name="cityLabel" Text="City"></Label><Button x:Name="cityButton" Text="..." Clicked="SelectCity"></Button>
-        <SearchBar x:Name="searchBarUniversity" Placeholder="University" IsEnabled="true"></SearchBar>
-        <Button x:Name="fillButton" Text="Fill blank" Clicked="OnFill" IsEnabled="false"/>
+        <Picker x:Name="pickerCountry" Title="Country" ></Picker>
+        <Label x:Name="cityLabel" Text="City"></Label>
+        <Button x:Name="cityButton" Text="..." Clicked="SelectCity"></Button>
+        <Label x:Name="universityLabel" Text="University"></Label>
+        <Button x:Name="universityButton" Text="..." Clicked="SelectUniversity"></Button>
+        <Button x:Name="fillButton" Text="Fill blank" Clicked="ShowBlank" IsEnabled="true"/>
       </StackLayout>
     </ScrollView>
   </ContentPage.Content>

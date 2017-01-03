@@ -11,7 +11,7 @@ namespace Blanker
 {
     public partial class SearchCityPage : ContentPage
     {
-        int CountryId { get; set; }
+        int CountryId;
 
         public List<City> Cities { get; set; }
 
@@ -27,9 +27,16 @@ namespace Blanker
         private async void FillCities()
         {
             Adapter adapter = new Adapter();
-
-            Cities = await adapter.GetCities(CountryId, searchBarCity.Text);
-            listViewCities.ItemsSource = Cities;
+            try
+            {
+                Cities = await adapter.GetCities(CountryId, searchBarCity.Text);
+                listViewCities.ItemsSource = Cities;
+            }
+            catch(Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
+            
         }
 
         private void OnSearch(object sender, EventArgs e)

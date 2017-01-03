@@ -14,14 +14,19 @@ namespace Blanker
         {
         }
 
-        public async Task<List<Country>> GetCountries()
+        private async Task<string> GetResponse(string url)
         {
-            string urlCountries = "https://api.vk.com/method/database.getCountries?need_all=1&count=1000";
             HttpClient client = new HttpClient();
-            var resp = await client.GetAsync(urlCountries);
-
+            var resp = await client.GetAsync(url);
             var json = resp.Content.ReadAsStringAsync().Result;
 
+            return json;
+
+        }
+
+        public async Task<List<Country>> GetCountries()
+        {
+            string json = await GetResponse(Properties.Resources.urlCountries);
             var countries = JsonConvert.DeserializeObject<RootCountries>(json);
 
             return countries.response;
@@ -30,12 +35,7 @@ namespace Blanker
 
         public async Task<List<City>> GetCities(int countryId, string filter)
         {
-            string urlCities = String.Format("https://api.vk.com/method/database.getCities?country_id={0}&q={1}", countryId, filter);
-            HttpClient client = new HttpClient();
-            var resp = await client.GetAsync(urlCities);
-
-            var json = resp.Content.ReadAsStringAsync().Result;
-
+            string json = await GetResponse(String.Format(Properties.Resources.urlCities, countryId, filter));
             var cities = JsonConvert.DeserializeObject<RootCities>(json);
 
             return cities.response;
@@ -43,15 +43,17 @@ namespace Blanker
 
         public async Task<List<University>> GetUniversities(int countryId, int cityId, string filter)
         {
-            string urlUnivirsities = String.Format("https://api.vk.com/method/database.getUniversities?q={0}&country_id={1}&city_id={2}", filter, countryId, cityId);
-            HttpClient client = new HttpClient();
-            var resp = await client.GetAsync(urlUnivirsities);
-
-            var json = resp.Content.ReadAsStringAsync().Result;
-
-            var universities = JsonConvert.DeserializeObject<RootUniversities>(json);
+            string json = await GetResponse(String.Format(Properties.Resources.urlUniversities, filter, countryId, cityId));
+            var universities = JsonConvert.DeserializeObject<RootUniversities>(EditJson(json));
 
             return universities.response;
+        }
+
+        private string EditJson(string json)
+        {
+            string newJson = json.Substring(0, json.IndexOf("[") + 1) + json.Substring(json.IndexOf(",")+1);
+
+            return newJson;
         }
 
     }

@@ -16,15 +16,13 @@ namespace Blanker
 {
     public partial class MainPage : ContentPage
     {
-        public static Blank Blank { get; set; }
+        public Blank Blank = new Blank();
 
         public List<Entry> Entries = new List<Entry>();
 
         public List<SearchBar> SearchBars = new List<SearchBar>();
 
         public List<Country> Countries { get; set; }
-
-        public City City { get; set; }
 
         Adapter Adapter;
 
@@ -34,16 +32,14 @@ namespace Blanker
 
             FillEntries();
 
-            FillCountries();
+            LoadCountries();
         }
 
-        private async void FillCountries()
+        private async void LoadCountries()
         {
-
             try
             {
                 Adapter = new Adapter();
-
                 Countries = await Adapter.GetCountries();
 
                 foreach (var item in Countries)
@@ -51,15 +47,25 @@ namespace Blanker
                     pickerCountry.Items.Add(item.title);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                await DisplayAlert("Attention", "You don't have the Internet connection", "OK");
+                await DisplayAlert("Attention", Properties.Resources.InternetConnectionError, "OK");
             }
+
         }
 
         private async void SelectCity(object sender, EventArgs e)
         {
+            await Navigation.PushAsync(new SearchCityPage(DetermineCountryId()));
+        }
 
+        private async void SelectUniversity(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SearchUniversityPage(Blank.Country.cid, Blank.City.cid));
+        }
+
+        private int DetermineCountryId()
+        {
             string country = pickerCountry.Items[pickerCountry.SelectedIndex];
             int countryId = 0;
 
@@ -68,17 +74,23 @@ namespace Blanker
                 if (item.title == country)
                 {
                     countryId = item.cid;
+                    Blank.Country = item;
                 }
             }
-
-            await Navigation.PushAsync(new SearchCityPage(countryId));
-
+            
+            return countryId;
         }
 
         protected internal void AddCity(City city)
         {
-            this.City = city;
-            cityLabel.Text = City.title;
+            this.Blank.City = city;
+            cityLabel.Text = this.Blank.City.title;
+        }
+
+        protected internal void AddUniversity(University university)
+        {
+            this.Blank.University = university;
+            universityLabel.Text = this.Blank.University.title;
         }
 
         private void FillEntries()
@@ -87,17 +99,17 @@ namespace Blanker
             Entries.Add(surnameEntry);
         }
 
-        async void OnFill(object sender, EventArgs e)
+        async void ShowBlank(object sender, EventArgs e)
         {
-            CreateBlank();
-            await Navigation.PushAsync(new BlankViewPage());
+            FillBlank();
+            await Navigation.PushAsync(new BlankViewPage(Blank));
         }
 
-        private void CreateBlank()
+        private void FillBlank()
         {
-            Blank = new Blank();
             Blank.Name = nameEntry.Text;
             Blank.Surname = surnameEntry.Text;
+            
         }
 
         private void OnTextChanged(object sender, EventArgs e)

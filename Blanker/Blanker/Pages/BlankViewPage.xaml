@@ -1,0 +1,27 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Blanker.BlankViewPage">
+  <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness"
+                iOS="20, 40, 20, 20"
+                Android="20, 20, 20, 20"
+                WinPhone="20, 20, 20, 20" />
+  </ContentPage.Padding>
+  <ContentPage.Content>
+    <ScrollView>
+      <Label Text="Blank Data" XAlign="Center" FontSize="24" />
+      <StackLayout Padding="5,0,0,0">
+        <Label Text="Name:" FontSize="24" />
+        <Label x:Name="labelName" FontSize="24" />
+        <Label Text="Surname:" FontSize="24" />
+        <Label x:Name="labelSurname" FontSize="24" ></Label>
+        <Label Text="Country:" FontSize="24" />
+        <Label x:Name="labelCountry" FontSize="24" ></Label>
+        <Label Text="City:" FontSize="24" />
+        <Label x:Name="labelCity" FontSize="24" ></Label>
+        <Label Text="University:" FontSize="24" />
+        <Label x:Name="labelUniversity" FontSize="24" ></Label>
+      </StackLayout>
+    </ScrollView>
+  </ContentPage.Content>
+</ContentPage>
