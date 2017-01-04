@@ -62,7 +62,7 @@ namespace Blanker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You don&apos;t have the Internet connection..
+        ///   Looks up a localized string similar to You don&apos;t have the Internet connection. Close application, turn on Internet and try again..
         /// </summary>
         internal static string InternetConnectionError {
             get {

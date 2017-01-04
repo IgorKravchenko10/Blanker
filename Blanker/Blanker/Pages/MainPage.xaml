@@ -18,11 +18,11 @@
         <Entry x:Name="surnameEntry" Text="" Placeholder="Surname" IsEnabled="false" TextChanged="OnTextChanged"/>
         <Picker x:Name="pickerCountry" Title="Country" IsEnabled="false" SelectedIndexChanged="OnTextChanged"></Picker>
         <StackLayout Orientation="Horizontal">
-          <Entry x:Name="cityEntry" Placeholder="City" IsEnabled="false" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" TextChanged="OnTextChanged"/>
-          <Button x:Name="cityButton" Text="Select" Clicked="SelectCity" IsEnabled="false"></Button>
+          <Label x:Name ="cityLabel" Text="City" FontSize="18" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
+          <Button x:Name="cityButton" Text="Select" Clicked="SelectCity" IsEnabled="false" ></Button>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
-          <Entry x:Name="universityEntry" Placeholder="University" IsEnabled="false" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" TextChanged="OnTextChanged"/>
+          <Label x:Name ="universityLabel" Text="University" FontSize="18" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
           <Button x:Name="universityButton" Text="Select" Clicked="SelectUniversity" IsEnabled="false"></Button>
         </StackLayout>
         <Button x:Name="fillButton" Text="Fill blank" Clicked="ShowBlank" IsEnabled="false"/>

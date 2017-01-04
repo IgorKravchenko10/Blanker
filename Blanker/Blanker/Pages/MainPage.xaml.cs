@@ -20,7 +20,7 @@ namespace Blanker
 
         public List<Country> Countries { get; set; }
 
-        Adapter Adapter;
+        Adapter Adapter = new Adapter();
 
         public MainPage()
         {
@@ -33,7 +33,6 @@ namespace Blanker
         {
             try
             {
-                Adapter = new Adapter();
                 Countries = await Adapter.GetCountries();
 
                 foreach (var item in Countries)
@@ -46,6 +45,14 @@ namespace Blanker
                 await DisplayAlert("Attention", Properties.Resources.InternetConnectionError, "OK");
             }
 
+        }
+
+        private void Refresh(bool result)
+        {
+            if (result)
+            {
+                LoadCountries();
+            }
         }
 
         private int DetermineCountryId()
@@ -68,13 +75,17 @@ namespace Blanker
         protected internal void AddCity(City city)
         {
             this.Blank.City = city;
-            cityEntry.Text = this.Blank.City.title;
+            cityLabel.TextColor = Color.Black;
+            cityLabel.Text = this.Blank.City.title;
+            CheckFilling();
         }
 
         protected internal void AddUniversity(University university)
         {
             this.Blank.University = university;
-            universityEntry.Text = this.Blank.University.title;
+            universityLabel.TextColor = Color.Black;
+            universityLabel.Text = this.Blank.University.title;
+            CheckFilling();
         }
 
         private void FillBlank()
@@ -83,6 +94,7 @@ namespace Blanker
             Blank.Surname = surnameEntry.Text;
 
         }
+
         async void ShowBlank(object sender, EventArgs e)
         {
             FillBlank();
@@ -92,19 +104,6 @@ namespace Blanker
         private void OnTextChanged(object sender, EventArgs e)
         {
             CheckFilling();
-
-            //for (int i = 0; i < Entries.Count; i++)
-            //{
-            //    if (i == Entries.Count - 1)
-            //    {
-            //        break;
-            //    }
-
-            //    if (!string.IsNullOrWhiteSpace(Entries[i].Text))
-            //    {
-            //        Entries[i + 1].IsEnabled = true;
-            //    }
-            //}
         }
 
         private void CheckFilling()
@@ -117,20 +116,20 @@ namespace Blanker
             {
                 pickerCountry.IsEnabled = true;
             }
-            if (pickerCountry.SelectedIndex>=0)
+            if (pickerCountry.SelectedIndex >= 0)
             {
                 cityButton.IsEnabled = true;
             }
-            if (!string.IsNullOrWhiteSpace(cityEntry.Text))
+            if (!string.IsNullOrWhiteSpace(cityLabel.Text))
             {
                 universityButton.IsEnabled = true;
             }
-            if (!string.IsNullOrWhiteSpace(universityEntry.Text))
+            if (!string.IsNullOrWhiteSpace(universityLabel.Text))
             {
                 fillButton.IsEnabled = true;
             }
         }
-       
+
         private async void SelectCity(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new SearchCityPage(DetermineCountryId()));
