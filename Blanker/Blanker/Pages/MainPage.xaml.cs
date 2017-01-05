@@ -47,14 +47,6 @@ namespace Blanker
 
         }
 
-        private void Refresh(bool result)
-        {
-            if (result)
-            {
-                LoadCountries();
-            }
-        }
-
         private int DetermineCountryId()
         {
             string country = pickerCountry.Items[pickerCountry.SelectedIndex];
@@ -120,11 +112,11 @@ namespace Blanker
             {
                 cityButton.IsEnabled = true;
             }
-            if (!string.IsNullOrWhiteSpace(cityLabel.Text))
+            if (cityLabel.Text != "City")
             {
                 universityButton.IsEnabled = true;
             }
-            if (!string.IsNullOrWhiteSpace(universityLabel.Text))
+            if (universityLabel.Text != "University")
             {
                 fillButton.IsEnabled = true;
             }
